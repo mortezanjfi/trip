@@ -1,0 +1,11 @@
+<%- include ('partials/header'); %>
+
+<h1>create new place</h1>
+
+<form action="/places" method='post'>
+    <input type="text" name="name" placeholder='name'>
+    <input type="text" name="image" placeholder='image url'>
+    <button>add</button>
+</form>
+
+<%- include ('partials/footer'); %>

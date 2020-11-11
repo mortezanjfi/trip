@@ -1,0 +1,118 @@
+<%- include ('../partials/header'); %>
+<%- include ('../partials/navigationBar'); %>
+
+<!-- add styles -->
+<style>
+    .title-1 {
+        font-size: 4rem;
+    }
+    .title-1, .subtitle {
+        animation: moveInLeft 0.8s ease-in;
+    }
+
+    .button {
+        animation: moveInTop 0.8s ease-in;
+        transition: all 0.2s; 
+    }
+    .button:hover, .button:active {
+        transform: scale(1.5);
+    }
+
+    .hero {
+        background-image: linear-gradient(hsla(48, 100%, 29%, 0.5) ,hsla(0, 0%, 48%, 0.5)), url(https://livingintehran.com/wp-content/uploads/2018/04/jame-mosque-aerial-view-sunset-yazd-iran.jpg);
+        background-size: cover;
+    }
+    .place-container {
+        position: relative;
+    }
+    .card {
+        border: none; 
+        transition: all 0.4s; 
+        border-radius: 10px;
+    }
+    .card:hover, .card:active {
+        backface-visibility: hidden;
+        transform: translateY(-1rem) translateZ(0) scale(1.01);
+        filter: brightness(80%);
+    }
+    .place-name {
+        z-index: 2; 
+        backface-visibility: hidden; 
+        position: absolute; 
+        top: 50%; 
+        left: 50%; 
+        transform: translate(-50%, -50%); 
+        border-radius: 50%; 
+        padding: 0.5rem; 
+        background-color: hsla(48, 100%, 67%, 0.6);
+    }
+    img {
+        border-radius: 5px;
+    }
+    @keyframes moveInLeft {
+        0%  {
+            opacity: 0;
+            transform: translateX(-100%) rotate(0deg); 
+        }
+        80% {
+            transform: translateX(10%) rotate(2deg); 
+        }
+        90% {
+            transform: translateX(-2%); 
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0); 
+        } 
+    }
+    @keyframes moveInTop {
+        0% {
+            opacity: 0;
+            transform: translateY(30%); 
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0); 
+        } 
+    }
+</style>
+
+<!-- top big yellow title -->
+<section class="hero is-warning is-large">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <h1 class="title title-1 has-text-success">
+                Iran Trip
+            </h1>
+            <h2 class="subtitle">
+                Share your experiences
+            </h2>
+            <a style='text-decoration: none;' class="button is-large is-warning is-inverted is-outlined" href="/places/new">Add place</a>
+        </div>
+    </div>
+</section>
+
+<!-- places -->
+<div class="container is-fullhd">
+    <div class="column mt-3">
+        <div class="row">
+            <div class="card-columns">
+                <% places.forEach(function(place){ %>
+                    <a href='/places/<%= place._id %>'>
+                        <div class="has-background-info-dark card text-center">
+                            <div class='place-container'>
+                                <figure class="card-image">
+                                    <img src="<%= place.image %>" alt="image of <%= place.name %>">
+                                </figure>
+                            </div>
+                            <p class="title place-name"><%= place.name %></p> 
+                        </div>
+                    </a>
+                <% }); %>
+            </div>
+        </div>        
+    </div>
+</div>
+
+<%- include ('../partials/footerDetails'); %>
+<%- include ('../partials/footer'); %>

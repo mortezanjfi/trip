@@ -1,0 +1,96 @@
+<%- include ('../partials/header'); %>
+<%- include ('../partials/navigationBar'); %>
+
+<!-- add css -->
+<style>
+    .is-child {
+        background: none;
+        border: 1px solid hsl(0, 0%, 50%);
+        color: hsl(0, 0%, 96%)	;
+    }
+    img {
+        border-radius: 5px;
+    }
+    #cm {
+        display: none;
+    }
+</style>
+
+<!-- code -->
+<div class='column has-background-dark'>
+    <div class="p-5 tile is-ancestor">
+        <div class="tile is-parent is-vertical">
+            <article class="tile is-child notification">
+                    <p class="title">Comments</p>
+                    <div class="content">
+                        <% place.comments.forEach(function(comment){ %>
+                            <p>
+                                <strong><%= comment.author %></strong> - <%= comment.text %>
+                            </p>
+                        <% }) %>
+                    </div>
+                    <% if(!!currentUser) { %>
+                        <button id='showButton' class='button is-warning is-large is-fullwidth' onclick='showHideOnClick()'>COMMENT</button>
+                    <% } else { %>
+                        <button id='showButton' class='button is-large is-fullwidth' title="Disabled button" disabled>Login to add comment</button>
+                    <% } %>
+                    <p class="subtitle">
+                        <form id="cm" action="/places/<%= place._id %>" method="POST">  
+                                <div class="field">
+                                    <label class="label" name="comment[text]">Comment</label>
+                                    <div class="control">
+                                        <input class="input" type="text" name="comment[text]" placeholder="Type your comment">
+                                    </div>
+                                    <label class="label" name="comment[author]">Author</label>
+                                    <div class="control">
+                                        <input class="input" type="text" name="comment[author]" placeholder="Type author name">
+                                    </div>
+                                </div>
+                            <div class="field">
+                                <div class="control">
+                                    <button class="button is-warning is-large is-fullwidth">Comment</button>
+                                </div>
+                            </div>
+                        </form>
+                    </p>
+            </article>
+            <article class="tile is-child notification">
+                <p class="title">Location</p>
+                    <figure class="image is-4by3">
+                        <img src="https://store.soft365.vn/wp-content/uploads/2020/05/mua-google-maps-3.jpg" alt="location of <%= place.name %>">
+                    </figure>
+            </article>
+        </div>
+        <div class="tile is-vertical is-8">
+            <div class="tile">
+                <div class="tile is-parent">
+                    <article class="tile is-child notification">
+                        <p class="title"><%= place.name %></p>
+                        <figure class="image is-4by3">
+                            <img src="<%= place.image %>" alt="image of <%= place.name %>">
+                        </figure>
+                        <p class="subtitle mt-2">Description</p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- add local script -->
+<script type='text/javascript' src='js/show.js'></script>
+
+<!-- add footer details -->
+<script>
+    function showHideOnClick() {
+        var commentForm = document.getElementById('cm'),
+            showButton = document.getElementById('showButton');
+        if (commentForm.style.display === 'none') {
+            commentForm.style.display = 'block';
+            showButton.style.display = 'none';
+        }
+    }
+</script>
+
+<%- include ('../partials/footerDetails'); %>
+<%- include ('../partials/footer'); %>

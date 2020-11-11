@@ -1,0 +1,63 @@
+<%- include ('partials/header'); %>
+<%- include ('partials/navigationBar'); %>
+
+<!-- add styles -->
+<style>
+    html {
+        display: table;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)),url(https://wallup.net/wp-content/uploads/2016/03/10/322343-landscape-Mosque-architecture-panoramas-Islam-urban-Iran-748x363.jpg);
+        background-size: cover;
+    }
+    .signIn {
+        border: 1px solid rgba(256, 256, 256, 0.2);;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        border-radius: 5px;
+        padding: 3em;
+    }
+    h2 {
+        font-family: Source Sans Pro;
+        font-weight: lighter;
+        color: #fff;
+        font-size: 50px;
+        text-align: center;
+    }
+    .input {
+        color: white;
+        width: 232px;
+        height: 50px;
+        display: block;
+        background: rgba(0, 0, 0, 0.1);
+        outline: none;
+        margin: 10px 0;
+        padding: 10px;
+        border: 1px solid rgba(256, 256, 256, 0.2);
+    }
+    .input:active, .input:focus {
+        border-color: hsla(48, 100%, 67%, 0.8)	;
+        box-shadow: 0 0 0 0.125em hsla(0, 0%, 21%, 0.5);
+    }
+    .input::placeholder {
+        color: hsl(0, 0%, 50%);
+        opacity: 1; 
+    }
+</style>
+
+<!-- codes -->
+<div class="signIn">
+    <h2>Login</h2>
+    <form action="/login" method="post">
+        <input class='input' type="text" name='username' placeholder='Username'>
+        <input class='input' type="password" name='password' placeholder='Password'>
+        <button formaction='/login' class='button is-warning is-dark is-outlined is-medium is-fullwidth'>login</button>
+        <button formaction="/register" class='mt-2 button is-warning is-dark is-outlined is-medium is-fullwidth'>Sign up</button>
+    </form>
+</div>
+
+<%- include ('partials/footer'); %>

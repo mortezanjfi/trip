@@ -1,0 +1,12 @@
+<%- include ('partials/header'); %>
+
+<h1>This is index page</h1>
+<a href="/places/new">Go to add places</a>
+<% places.forEach(function(place){ %>
+    <div>
+        <h1><%= place.name %></h1>
+        <img src="<%= place.image %>" alt="">
+    </div>
+<% }) %>
+
+<%- include ('partials/footer'); %>

@@ -1,0 +1,203 @@
+<!-- add styles -->
+<style>
+    .navigation__checkbox {
+        display: none;
+    }
+    .navigation__button {
+        width: 4rem;
+        height: 4rem;
+        position: fixed;
+        top: 1.5rem;
+        right: 2rem;
+        border-radius: 50%;
+        background-color: hsl(48, 100%, 67%);
+        z-index: 2000;
+        box-shadow: 0 1rem 2rem rgba(0, 0, 255, .1);
+        text-align: center;
+        cursor: pointer;
+    }
+    .navigation__background {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        position: fixed;
+        top: 2rem;
+        right: 2.5rem;
+        background-image: radial-gradient(hsl(0, 0%, 21%), hsl(0, 0%, 7%));
+        z-index: 1000;
+        transition: all 0.5s;
+    }
+    .navigation__nav {
+        height: 150vh;
+        top: 0;
+        right: 0;
+        position: fixed;
+        z-index: 1500;
+        opacity: 0;
+        width: 0;
+        transition: all 0.5s;
+    }
+    .navigation__list {
+        list-style: none;
+        top: 34%;
+        right: -48%;
+        transform: translate(-50%, -50%);
+        position: absolute;
+        transform: translate(-25%, -80%);
+        text-align: center;
+        width: 100%;
+    }
+    .navigation__item {
+        margin: 3rem;
+        backface-visibility: hidden;
+    }
+
+    .navigation__item-1 {
+        transform: rotate(-5deg);
+        margin-right: -5rem;
+        margin-top: -20rem;
+    }
+
+    .navigation__item-2 {
+        transform: rotate(-40deg);
+        margin-right: -15%;
+    }
+    .navigation__link:link, .navigation__link:visited {
+        display: inline-block;
+        text-decoration: none;
+        font-size: 3rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        color: hsl(0, 0%, 96%); 
+        background-image: linear-gradient(120deg, transparent 0%, transparent 50%, hsl(48, 100%, 67%) 50%);
+        padding: 1rem 2rem;
+        background-size: 250%;
+        transition: all 0.5s;
+    }
+    .navigation__link:link span, .navigation__link:visited span {
+        margin-right: 1rem;
+        display: inline-block;
+    }
+    .navigation__link:hover, .navigation__link:active {
+        background-position: 100%;
+        color: hsl(0, 0%, 7%);
+        transform: scale(1.1);
+    }
+    .navigation__checkbox:checked ~ .navigation__background {
+        transform: scale(18);
+        backface-visibility: hidden;
+    }
+    .navigation__checkbox:checked ~ .navigation__nav {
+        opacity: 1;
+        width: 100%;
+    }
+    .navigation__icon {
+        position: relative;
+        margin-top: 2rem;
+    }
+    .navigation__icon, .navigation__icon::before, .navigation__icon::after {
+        width: 2rem;
+        height: 1px;
+        background-color: hsl(0, 0%, 7%);
+        display: inline-block;
+    }
+    .navigation__icon::before, .navigation__icon::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        transition: all 0.2s;
+    }
+    .navigation__icon::before {
+        top: -0.8rem;
+    }
+    .navigation__icon::after {
+        top: 0.8rem;
+    }
+    .navigation__button:hover .navigation__icon:before {
+        top: -1rem;
+    }
+    .navigation__button:hover .navigation__icon:after {
+        top: 1rem;
+    }
+    .navigation__checkbox:checked + .navigation__button .navigation__icon {
+        background-color: transparent;
+    }
+    .navigation__checkbox:checked + .navigation__button .navigation__icon::before {
+        top: 0;
+        transform: rotate(135deg);
+    }
+    .navigation__checkbox:checked + .navigation__button .navigation__icon::after {
+        top: 0;
+        transform: rotate(-135deg);
+    }
+    .navigation__button:hover, .navigation__button:link {
+        transform: scale(1.2)
+    }
+
+    /* For user styles that fixed when login a person */
+    .fixedUserElement {
+        background-color: #c0c0c0;
+        position: fixed;
+        bottom: 1.5rem;
+        left: 2rem;
+        width:10%;
+        z-index:100;
+        inline-size: auto;
+        background: border-box;
+    }
+
+    /* home icon always on top */
+    .fixedHomeElement {
+        text-align: center;
+        color:  hsl(48, 100%, 67%);
+        position: fixed;
+        top: 2.5rem;
+        right: 7rem;
+        width: 20%;
+        z-index:100;
+        inline-size: auto;
+        background: border-box;
+        transition: all 0.3s;
+        z-index: 100;        
+    }
+    .fixedHomeElement:hover {
+        transform: scale(1.5)
+    }
+</style>
+
+<!-- navigation's code -->
+<div class="navigation">
+    <input type="checkbox" class="navigation__checkbox" id="nav-toggle">
+    <label for="nav-toggle" class="navigation__button" style='transition: all 0.2s;'>
+        <span class="navigation__icon">&nbsp;</span>
+    </label>
+    <div class="navigation__background">&nbsp;</div>
+        <nav class="navigation__nav">
+            <ul class="navigation__list">
+                <% if(!currentUser) { %>
+                    <li class="navigation__item navigation__item-1"><a href="/login" class="navigation__link"><i class="fa fa-angle-double-right" aria-hidden="true"></i>  login</a></li>
+                <% } else { %>
+                    <li class="navigation__item navigation__item-1"><a href="/logout" class="navigation__link"><i class="fa fa-angle-double-right" aria-hidden="true"></i>  logout</a></li>
+                <% } %>
+                <li class="navigation__item navigation__item-2"><a href="/" class="navigation__link"><i class="fa fa-angle-double-right" aria-hidden="true"></i>  Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<!-- Singed person -->
+<% if(!!currentUser) { %>
+    <div class="control">
+        <div class="fixedUserElement tags has-addons">
+            <span class="tag is-dark">Signed as</span>
+            <span class="tag is-success"><%= currentUser.username %></span>
+        </div>
+    </div>
+<% } %>
+
+<!-- home icon -->
+<a href="/places">
+    <div class="fixedHomeElement">
+        <i class="fa fa-home fa-2x" aria-hidden="true"></i>
+    </div>
+</a>
